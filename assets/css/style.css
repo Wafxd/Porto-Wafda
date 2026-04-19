@@ -1,5 +1,9 @@
-html {
+html, body {
     scroll-behavior: smooth;
+    /* FIX UTAMA: Paksa agar tidak ada elemen yang bisa melampaui lebar layar */
+    max-width: 100vw; 
+    overflow-x: hidden;
+    position: relative;
 }
 
 /* --- Palet Warna NEON TECH --- */
@@ -24,7 +28,6 @@ body {
     font-family: var(--font-main);
     background-color: var(--bg-dark);
     color: var(--text-main);
-    overflow-x: hidden;
     letter-spacing: -0.5px;
 }
 
@@ -429,38 +432,65 @@ footer {
     background-color: #020205;
 }
 
-/* --- RESPONSIVE MOBILE STYLES --- */
+/* =========================================
+   RESPONSIVE MOBILE STYLES (FIXED)
+   ========================================= */
 @media (max-width: 1024px) {
     .hero h1 { font-size: 4rem; }
     .hero-content { gap: 3vw; } 
 }
 
 @media (max-width: 768px) {
+    /* Matikan custom cursor di HP */
     * { cursor: auto !important; }
     #cursor { display: none !important; }
     nav { padding: 15px 5vw; justify-content: center; }
     
-    .hero { padding: 120px 5vw 60px 5vw; align-items: center;}
+    .hero { padding: 100px 5vw 40px 5vw; align-items: center;}
     .hero-content { flex-direction: column-reverse; text-align: center; gap: 30px; }
-    .hero-text { flex: none; text-align: center; }
-    .hero h1 { font-size: 2.8rem; line-height: 1.2; text-align: center; }
-    .hero p { font-size: 1.1rem; text-align: center; margin-bottom: 30px; }
+    .hero-text { flex: none; text-align: center; width: 100%; }
+    
+    /* Kurangi ukuran font agar kata panjang seperti "DEVELOPER" tidak merusak layout */
+    .hero h1 { font-size: 2.2rem; line-height: 1.3; text-align: center; word-wrap: break-word; }
+    .hero p { font-size: 1.05rem; text-align: center; margin-bottom: 30px; }
     .hero-image { flex: none; order: 1; margin-bottom: 20px;} 
     
-    /* Penyesuaian Foto Hero HP */
     .hero-img-wrapper { max-width: 80%; }
     .hero-img-wrapper img { width: 100%; max-height: 50vh; transform: none; }
 
-    section { padding: 70px 5vw; }
+    section { padding: 50px 5vw; }
     .section-title { 
-        font-size: 2.2rem; text-align: center; border-left: none; 
+        font-size: 2rem; text-align: center; border-left: none; 
         border-bottom: 4px solid var(--magenta-glow); padding-left: 0; padding-bottom: 10px; display: block;
     }
-    .slider-wrapper { margin: 0; padding: 30px 0; }
+    
+    /* FIX SLIDER BOCOR: Batasi lebar di HP dan sembunyikan kelebihannya */
+    .slider-wrapper { 
+        margin: 0; 
+        padding: 0; 
+        width: 100%;
+        max-width: 100vw;
+        overflow: hidden; /* Potong sisa slider di HP */
+    }
+    
+    .swiper { 
+        overflow: hidden !important; /* Mencegah pelebaran viewport */
+        padding: 20px 10px !important; /* Beri sedikit ruang agar efek scale 1.05 tidak terpotong */
+    }
+    
+    /* Sembunyikan tombol panah di HP (karena user bisa swipe) */
+    .swiper-button-next, .swiper-button-prev { display: none !important; }
+    
     .nf-card:hover .nf-popout { transform: translate(-50%, -50%) scale(1.05); } 
+    .nf-popout-details { padding: 10px; } /* Kurangi padding dalam popout */
+    .nf-title { font-size: 1rem; margin-bottom: 5px; }
+    .nf-desc { font-size: 0.75rem; margin-bottom: 8px; }
+
     .about-text { text-align: center; font-size: 1rem; }
-    .highlight-box { text-align: left; font-size: 0.95rem; }
+    .highlight-box { text-align: left; font-size: 0.95rem; padding: 20px; }
     .skills-container { min-height: 350px; }
-    .project-card { padding: 25px; }
-    .project-card h3 { font-size: 1.4rem; }
+    
+    .projects-grid { gap: 20px; }
+    .project-card { padding: 20px; }
+    .project-card h3 { font-size: 1.3rem; }
 }
